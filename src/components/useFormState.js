@@ -3,9 +3,16 @@ import { useState } from "react";
 /** القيم الفارغة لكل نوع صف */
 const emptyMarketingRow = () => ({ phone: "", country: "", type: "", status: "" });
 const emptyOpenDeal = () => ({
-  client_name: "", client_phone: "", service_group: "",
-  service_type: "", expected_value: "", expected_close_date: "",
-  b2b_or_b2c: "", notes: "",
+  client_name: "",
+  client_phone: "",
+  service_group: "",
+  service_type: "",
+  expected_value: "",
+  expected_close_date: "",
+  b2b_or_b2c: "",
+  deal_stage: "",
+  rejection_reason: "",
+  notes: "",
 });
 const emptyClosedDeal = () => ({
   client_name: "", client_phone: "", service: "", result: "", loss_reason: "",
