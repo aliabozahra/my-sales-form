@@ -1,0 +1,79 @@
+/** validate.js — منطق التحقق من صحة البيانات */
+
+/** يتحقق من رقم الهاتف: أرقام فقط + 9 خانات على الأقل */
+export function isValidPhone(phone) {
+  const cleaned = phone.replace(/\s/g, "");
+  return /^[0-9]{9,15}$/.test(cleaned);
+}
+
+/** يتحقق أن التاريخ في المستقبل أو اليوم */
+export function isFutureOrToday(dateStr) {
+  if (!dateStr) return false;
+  const today = new Date().toISOString().split("T")[0];
+  return dateStr >= today;
+}
+
+/**
+ * validateForm — يتحقق من كل البيانات ويرجع كائن errors
+ * Returns: { isValid: bool, errors: { fieldPath: message } }
+ */
+export function validateForm(state) {
+  const errors = {};
+
+  // Header
+  if (!state.salesName) errors.salesName = "اختر اسمك من القائمة";
+
+  // القسم 1 — أرقام التسويق
+  state.marketingRows.forEach((row, i) => {
+    if (!row.phone) errors[`mk_phone_${i}`] = "الرقم مطلوب";
+    else if (!isValidPhone(row.phone)) errors[`mk_phone_${i}`] = "الرقم غير صحيح — تأكد من كود الدولة (9+ أرقام)";
+    if (!row.country) errors[`mk_country_${i}`] = "اختر الدولة";
+    if (!row.type) errors[`mk_type_${i}`] = "اختر النوع";
+    if (!row.status) errors[`mk_status_${i}`] = "اختر موقف العميل";
+  });
+
+  // القسم 2 — الديلات المفتوحة
+  state.openDeals.forEach((deal, i) => {
+    if (!deal.client_name) errors[`od_name_${i}`] = "اسم العميل مطلوب";
+    if (!deal.client_phone) errors[`od_phone_${i}`] = "الرقم مطلوب";
+    else if (!isValidPhone(deal.client_phone)) errors[`od_phone_${i}`] = "الرقم غير صحيح";
+    if (!deal.service_group) errors[`od_sg_${i}`] = "اختر جروب الخدمة";
+    if (!deal.service_type) errors[`od_st_${i}`] = "نوع الخدمة مطلوب";
+    if (!deal.expected_value || Number(deal.expected_value) <= 0)
+      errors[`od_val_${i}`] = "أدخل قيمة صحيحة بالريال";
+    if (!deal.expected_close_date) errors[`od_date_${i}`] = "التاريخ المتوقع مطلوب";
+    else if (!isFutureOrToday(deal.expected_close_date))
+      errors[`od_date_${i}`] = "التاريخ لازم يكون في المستقبل";
+    if (!deal.b2b_or_b2c) errors[`od_b2b_${i}`] = "اختر B2B أو B2C";
+  });
+
+  // القسم 3 — الديلات المغلقة
+  state.closedDeals.forEach((deal, i) => {
+    if (!deal.client_name) errors[`cd_name_${i}`] = "اسم العميل مطلوب";
+    if (!deal.client_phone) errors[`cd_phone_${i}`] = "الرقم مطلوب";
+    if (!deal.service) errors[`cd_service_${i}`] = "اسم الخدمة مطلوب";
+    if (!deal.result) errors[`cd_result_${i}`] = "اختر النتيجة";
+    if (deal.result === "Lost" && !deal.loss_reason)
+      errors[`cd_reason_${i}`] = "اذكر سبب الخسارة";
+  });
+
+  // القسم 4 — B2B
+  if (state.b2bMeetings !== "" && Number(state.b2bMeetings) < 0)
+    errors.b2b_meetings = "أدخل رقمًا صحيحًا (0 أو أكثر)";
+
+  // القسم 5 — التوقعات
+  state.expectations.forEach((exp, i) => {
+    if (!exp.client_name) errors[`ex_name_${i}`] = "اسم العميل مطلوب";
+    if (!exp.client_phone) errors[`ex_phone_${i}`] = "الرقم مطلوب";
+    else if (!isValidPhone(exp.client_phone)) errors[`ex_phone_${i}`] = "الرقم غير صحيح";
+    if (!exp.service_name) errors[`ex_sname_${i}`] = "اسم الخدمة مطلوب";
+    if (!exp.service_type) errors[`ex_stype_${i}`] = "اختر نوع الخدمة";
+    if (!exp.amount || Number(exp.amount) <= 0)
+      errors[`ex_amount_${i}`] = "أدخل المبلغ بالريال";
+  });
+
+  return {
+    isValid: Object.keys(errors).length === 0,
+    errors,
+  };
+}

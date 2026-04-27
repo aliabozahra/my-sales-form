@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&family=Tajawal:wght@300;400;500;700&display=swap');
+
+:root {
+  --primary: #6610f2;
+  --primary-light: #8540f5;
+  --primary-dark: #4a00d4;
+  --primary-bg: #f0e8ff;
+  --accent: #fd7e14;
+  --accent-light: #ff9a45;
+  --light: #f8f9fa;
+  --white: #ffffff;
+  --gray-50: #fafafa;
+  --gray-100: #f1f3f5;
+  --gray-200: #e9ecef;
+  --gray-300: #dee2e6;
+  --gray-400: #ced4da;
+  --gray-500: #adb5bd;
+  --gray-600: #6c757d;
+  --gray-700: #495057;
+  --gray-800: #343a40;
+  --gray-900: #212529;
+  --success: #198754;
+  --success-light: #d1e7dd;
+  --danger: #dc3545;
+  --danger-light: #f8d7da;
+  --warning: #ffc107;
+  --shadow-sm: 0 2px 8px rgba(102, 16, 242, 0.08);
+  --shadow-md: 0 4px 20px rgba(102, 16, 242, 0.12);
+  --shadow-lg: 0 8px 40px rgba(102, 16, 242, 0.16);
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  direction: rtl;
+  font-size: 16px;
+}
+
+body {
+  font-family: 'Cairo', 'Tajawal', sans-serif;
+  background: linear-gradient(135deg, #f5f0ff 0%, #fff8f0 50%, #f0f4ff 100%);
+  min-height: 100vh;
+  color: var(--gray-800);
+  line-height: 1.6;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--gray-100); }
+::-webkit-scrollbar-thumb { background: var(--primary-light); border-radius: 3px; }
+
+/* Selection */
+::selection { background: var(--primary-bg); color: var(--primary-dark); }
