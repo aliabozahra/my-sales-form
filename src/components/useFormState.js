@@ -1,8 +1,15 @@
 import { useState } from "react";
 
 /** القيم الفارغة لكل نوع صف */
-const emptyMarketingRow = () => ({ phone: "", country: "", type: "", status: "" });
+const emptyMarketingRow = () => ({ 
+  client_name: "",   // ← جديد
+  phone: "", 
+  country: "", 
+  type: "", 
+  status: "" 
+});
 const emptyOpenDeal = () => ({
+  client_status: "",
   client_name: "",
   client_phone: "",
   service_group: "",

@@ -2,9 +2,10 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import {
-  EMPLOYEES, COUNTRIES, CLIENT_STATUSES,
+  EMPLOYEES, COUNTRIES,
   SERVICE_GROUPS, BUSINESS_TYPES, CLIENT_TYPES,
   SERVICE_TYPES_EXPECTATION, WEBHOOK_URL,DEAL_RESULTS,DEAL_STAGES, DEAL_REJECTION_REASONS,
+  CLIENT_STATUSES_DEALS,
 } from "./constants";
 import FormField from "./components/FormField";
 import SectionCard from "./components/SectionCard";
@@ -201,6 +202,15 @@ export default function DailyReportPage() {
             addLabel="إضافة رقم جديد"
             renderRow={(row, i) => (
               <>
+              <div data-error={!!e(`mk_cname_${i}`)}>
+  <FormField
+    label="اسم العميل"
+    value={row.client_name}
+    onChange={v => form.updateMarketing(i, "client_name", v)}
+    error={e(`mk_cname_${i}`)}
+    placeholder="اسم العميل أو وصف مختصر"
+  />
+</div>
                 <div data-error={!!e(`mk_phone_${i}`)}>
                   <FormField
                     label="رقم الهاتف"
@@ -240,7 +250,7 @@ export default function DailyReportPage() {
                     type="select"
                     value={row.status}
                     onChange={v => form.updateMarketing(i, "status", v)}
-                    options={CLIENT_STATUSES}
+                    options={CLIENT_STATUSES_DEALS}
                     error={e(`mk_status_${i}`)}
                     required
                   />
@@ -338,6 +348,16 @@ export default function DailyReportPage() {
             required
           />
         </div>
+        {/* موقف العميل — اختياري */}
+<div>
+  <FormField
+    label="موقف العميل (اختياري)"
+    type="select"
+    value={row.client_status}
+    onChange={v => form.updateOpenDeal(i, "client_status", v)}
+    options={CLIENT_STATUSES_DEALS}
+  />
+</div>
 
         {/* مرحلة الديل — اختياري */}
         <div>

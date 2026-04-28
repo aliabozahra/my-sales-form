@@ -51,13 +51,12 @@ export const COUNTRIES = [
   "أخرى",
 ];
 
-export const CLIENT_STATUSES = [
+export const CLIENT_STATUSES_DEALS = [
   "السعر غالي",
   "لم يتم الرد",
-  "اشترى",
   "تم التواصل",
-  "غير مهتم",
   "سيفكر",
+  "غير مهتم",
   "أخرى",
 ];
 

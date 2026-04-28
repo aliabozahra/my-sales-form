@@ -1,9 +1,12 @@
 /** validate.js — منطق التحقق من صحة البيانات */
 
-/** يتحقق من رقم الهاتف: أرقام فقط + 9 خانات على الأقل */
+/**
+ * يتحقق من رقم الهاتف — أرقام فقط بدون قيود على الطول
+ * يقبل أي رقم من 7 إلى 15 خانة
+ */
 export function isValidPhone(phone) {
-  const cleaned = phone.replace(/\s/g, "");
-  return /^[0-9]{9,15}$/.test(cleaned);
+  const cleaned = phone.replace(/\s|-/g, "");
+  return /^[0-9]{7,15}$/.test(cleaned);
 }
 
 /** يتحقق أن التاريخ في المستقبل أو اليوم */
@@ -26,7 +29,7 @@ export function validateForm(state) {
   // القسم 1 — أرقام التسويق
   state.marketingRows.forEach((row, i) => {
     if (!row.phone) errors[`mk_phone_${i}`] = "الرقم مطلوب";
-    else if (!isValidPhone(row.phone)) errors[`mk_phone_${i}`] = "الرقم غير صحيح — تأكد من كود الدولة (9+ أرقام)";
+    else if (!isValidPhone(row.phone)) errors[`mk_phone_${i}`] = "الرقم غير صحيح";
     if (!row.country) errors[`mk_country_${i}`] = "اختر الدولة";
     if (!row.type) errors[`mk_type_${i}`] = "اختر النوع";
     if (!row.status) errors[`mk_status_${i}`] = "اختر موقف العميل";
@@ -45,16 +48,6 @@ export function validateForm(state) {
     else if (!isFutureOrToday(deal.expected_close_date))
       errors[`od_date_${i}`] = "التاريخ لازم يكون في المستقبل";
     if (!deal.b2b_or_b2c) errors[`od_b2b_${i}`] = "اختر B2B أو B2C";
-  });
-
-  // القسم 3 — الديلات المغلقة
-  state.closedDeals.forEach((deal, i) => {
-    if (!deal.client_name) errors[`cd_name_${i}`] = "اسم العميل مطلوب";
-    if (!deal.client_phone) errors[`cd_phone_${i}`] = "الرقم مطلوب";
-    if (!deal.service) errors[`cd_service_${i}`] = "اسم الخدمة مطلوب";
-    if (!deal.result) errors[`cd_result_${i}`] = "اختر النتيجة";
-    if (deal.result === "Lost" && !deal.loss_reason)
-      errors[`cd_reason_${i}`] = "اذكر سبب الخسارة";
   });
 
   // القسم 4 — B2B
