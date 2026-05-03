@@ -5,8 +5,8 @@
  * يقبل أي رقم من 7 إلى 15 خانة
  */
 export function isValidPhone(phone) {
-  const cleaned = phone.replace(/\s|-/g, "");
-  return /^[0-9]{7,15}$/.test(cleaned);
+  const cleaned = phone.replace(/[\s\-\+\(\)]/g, "");
+  return cleaned.length >= 6 && /^[0-9]+$/.test(cleaned);
 }
 
 /** يتحقق أن التاريخ في المستقبل أو اليوم */
@@ -27,13 +27,16 @@ export function validateForm(state) {
   if (!state.salesName) errors.salesName = "اختر اسمك من القائمة";
 
   // القسم 1 — أرقام التسويق
-  state.marketingRows.forEach((row, i) => {
-    if (!row.phone) errors[`mk_phone_${i}`] = "الرقم مطلوب";
-    else if (!isValidPhone(row.phone)) errors[`mk_phone_${i}`] = "الرقم غير صحيح";
-    if (!row.country) errors[`mk_country_${i}`] = "اختر الدولة";
-    if (!row.type) errors[`mk_type_${i}`] = "اختر النوع";
-    if (!row.status) errors[`mk_status_${i}`] = "اختر موقف العميل";
-  });
+// القسم 1 — أرقام التسويق
+state.marketingRows.forEach((row, i) => {
+  if (!row.phone && !row.email)
+    errors[`mk_contact_${i}`] = "أدخل رقم الهاتف أو الإيميل";
+  else if (row.phone && !isValidPhone(row.phone))
+    errors[`mk_phone_${i}`] = "الرقم غير صحيح";
+  if (!row.country) errors[`mk_country_${i}`] = "اختر الدولة";
+  if (!row.type) errors[`mk_type_${i}`] = "اختر النوع";
+  if (!row.status) errors[`mk_status_${i}`] = "اختر موقف العميل";
+});
 
   // القسم 2 — الديلات المفتوحة
   state.openDeals.forEach((deal, i) => {

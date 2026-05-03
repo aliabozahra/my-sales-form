@@ -1,12 +1,16 @@
 import { useState } from "react";
 
-/** القيم الفارغة لكل نوع صف */
+
 const emptyMarketingRow = () => ({ 
-  client_name: "",   // ← جديد
-  phone: "", 
-  country: "", 
-  type: "", 
-  status: "" 
+  client_name: "", phone: "", email: "",  
+  country: "", type: "", status: "" 
+});
+
+const emptyExpectation = () => ({
+  client_name: "", client_phone: "", service_name: "",
+  service_type: "", amount: "", 
+  expected_close_date: "",  // ← جديد
+  notes: "",
 });
 const emptyOpenDeal = () => ({
   client_status: "",
@@ -23,10 +27,6 @@ const emptyOpenDeal = () => ({
 });
 const emptyClosedDeal = () => ({
   client_name: "", client_phone: "", service: "", result: "", loss_reason: "",
-});
-const emptyExpectation = () => ({
-  client_name: "", client_phone: "", service_name: "",
-  service_type: "", amount: "", notes: "",
 });
 
 /** useFormState — يدير حالة الفورم كاملة */

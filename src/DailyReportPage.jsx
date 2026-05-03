@@ -211,17 +211,30 @@ export default function DailyReportPage() {
     placeholder="اسم العميل أو وصف مختصر"
   />
 </div>
-                <div data-error={!!e(`mk_phone_${i}`)}>
-                  <FormField
-                    label="رقم الهاتف"
-                    value={row.phone}
-                    onChange={v => form.updateMarketing(i, "phone", v)}
-                    error={e(`mk_phone_${i}`)}
-                    placeholder="966551234567"
-                    hint="يشمل كود الدولة (9+ أرقام)"
-                    required
-                  />
-                </div>
+                {/* رقم أو إيميل — لازم واحد منهم */}
+<div style={{ gridColumn: "1 / -1" }} data-error={!!e(`mk_contact_${i}`)}>
+  {e(`mk_contact_${i}`) && (
+    <p style={{ color: "var(--danger)", fontSize: "0.8rem", marginBottom: "8px", fontWeight: 600 }}>
+      ⚠ {e(`mk_contact_${i}`)}
+    </p>
+  )}
+  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px" }}>
+    <FormField
+      label="رقم الهاتف"
+      value={row.phone}
+      onChange={v => form.updateMarketing(i, "phone", v)}
+      error={e(`mk_phone_${i}`)}
+      placeholder="966551234567"
+      hint="أو أدخل الإيميل"
+    />
+    <FormField
+      label="الإيميل"
+      value={row.email}
+      onChange={v => form.updateMarketing(i, "email", v)}
+      placeholder="example@email.com"
+    />
+  </div>
+</div>
                 <div data-error={!!e(`mk_country_${i}`)}>
                   <FormField
                     label="الدولة"
@@ -495,6 +508,14 @@ export default function DailyReportPage() {
                     required
                   />
                 </div>
+                <div>
+  <FormField
+    label="تاريخ الإغلاق المتوقع (اختياري)"
+    type="date"
+    value={row.expected_close_date}
+    onChange={v => form.updateExpectation(i, "expected_close_date", v)}
+  />
+</div>
                 <div style={{ gridColumn: "1 / -1" }}>
                   <FormField
                     label="ملاحظات (اختياري)"
