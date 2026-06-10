@@ -5,8 +5,10 @@
  * يقبل أي رقم من 7 إلى 15 خانة
  */
 export function isValidPhone(phone) {
-  const cleaned = phone.replace(/[\s\-\+\(\)]/g, "");
-  return cleaned.length >= 6 && /^[0-9]+$/.test(cleaned);
+  if (!phone) return false;
+  
+  const cleaned = phone.toString().replace(/[^\d]/g, "");
+    return cleaned.length >= 6 && /^[0-9]+$/.test(cleaned);
 }
 
 /** يتحقق أن التاريخ في المستقبل أو اليوم */
