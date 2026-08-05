@@ -58,6 +58,10 @@ export function useFormState() {
   const updateClosedDeal = (i, field, val) =>
     setClosedDeals(r => r.map((row, idx) => idx === i ? { ...row, [field]: val } : row));
 
+  // القسم 3.5 — عدد عملاء الحملة
+  const [campaignReplied, setCampaignReplied] = useState("");
+  const [campaignPurchased, setCampaignPurchased] = useState("");
+
   // القسم 4 — B2B
   const [b2bMeetings, setB2bMeetings] = useState("");
   const [b2bQuotes, setB2bQuotes] = useState("");
@@ -79,6 +83,10 @@ export function useFormState() {
     marketing_numbers: marketingRows,
     open_deals: openDeals,
     closed_deals: closedDeals,
+    campaign_clients: {
+      replied_count: parseInt(campaignReplied) || 0,
+      purchased_count: parseInt(campaignPurchased) || 0,
+    },
     b2b_stats: {
       meetings_count: parseInt(b2bMeetings) || 0,
       quotes_details: b2bQuotes,
@@ -96,6 +104,8 @@ export function useFormState() {
     openDeals, addOpenDeal, removeOpenDeal, updateOpenDeal,
     // Closed Deals
     closedDeals, addClosedDeal, removeClosedDeal, updateClosedDeal,
+    // Campaign
+    campaignReplied, setCampaignReplied, campaignPurchased, setCampaignPurchased,
     // B2B
     b2bMeetings, setB2bMeetings, b2bQuotes, setB2bQuotes,
     // Expectations

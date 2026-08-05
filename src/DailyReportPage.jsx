@@ -32,6 +32,8 @@ export default function DailyReportPage() {
       marketingRows: form.marketingRows,
       openDeals: form.openDeals,
       closedDeals: form.closedDeals,
+      campaignReplied: form.campaignReplied,
+      campaignPurchased: form.campaignPurchased,
       b2bMeetings: form.b2bMeetings,
       expectations: form.expectations,
     });
@@ -414,6 +416,40 @@ export default function DailyReportPage() {
 
         {/* ═══ القسم 3 — الديلات المغلقة ═══ */}
         =
+
+        {/* ═══ القسم 3.5 — عدد عملاء الحملة ═══ */}
+        <SectionCard
+          icon="🎯"
+          title="عدد عملاء الحملة"
+          description="سجّل عدد العملاء الذين تفاعلوا مع الحملة اليوم — أدخل 0 إذا لم يوجد."
+        >
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "10px" }}>
+            <div data-error={!!e("campaign_replied")}>
+              <FormField
+                label="كم عميل رد على الحملة"
+                type="number"
+                value={form.campaignReplied}
+                onChange={form.setCampaignReplied}
+                error={e("campaign_replied")}
+                placeholder="0"
+                min="0"
+                required
+              />
+            </div>
+            <div data-error={!!e("campaign_purchased")}>
+              <FormField
+                label="كم عميل اشترى من الحملة"
+                type="number"
+                value={form.campaignPurchased}
+                onChange={form.setCampaignPurchased}
+                error={e("campaign_purchased")}
+                placeholder="0"
+                min="0"
+                required
+              />
+            </div>
+          </div>
+        </SectionCard>
 
         {/* ═══ القسم 4 — إحصائيات B2B ═══ */}
         <SectionCard

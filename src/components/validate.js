@@ -55,6 +55,17 @@ state.marketingRows.forEach((row, i) => {
     if (!deal.b2b_or_b2c) errors[`od_b2b_${i}`] = "اختر B2B أو B2C";
   });
 
+  // القسم 3.5 — عدد عملاء الحملة
+  if (state.campaignReplied === "" || state.campaignReplied === undefined)
+    errors.campaign_replied = "أدخل عدد العملاء اللي ردوا على الحملة";
+  else if (!Number.isInteger(Number(state.campaignReplied)) || Number(state.campaignReplied) < 0)
+    errors.campaign_replied = "أدخل رقمًا صحيحًا (0 أو أكثر)";
+
+  if (state.campaignPurchased === "" || state.campaignPurchased === undefined)
+    errors.campaign_purchased = "أدخل عدد العملاء اللي اشتروا من الحملة";
+  else if (!Number.isInteger(Number(state.campaignPurchased)) || Number(state.campaignPurchased) < 0)
+    errors.campaign_purchased = "أدخل رقمًا صحيحًا (0 أو أكثر)";
+
   // القسم 4 — B2B
   if (state.b2bMeetings !== "" && Number(state.b2bMeetings) < 0)
     errors.b2b_meetings = "أدخل رقمًا صحيحًا (0 أو أكثر)";
