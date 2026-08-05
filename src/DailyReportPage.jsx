@@ -71,7 +71,7 @@ export default function DailyReportPage() {
   const e = (key) => errors[key]; // shorthand
 
   return (
-    <div style={{ margin: "0 auto", padding: "0 0 80px" }}>
+    <div style={{ maxWidth: "880px", margin: "0 auto", padding: "0 0 80px" }}>
 
 
 
@@ -415,7 +415,6 @@ export default function DailyReportPage() {
 </SectionCard>
 
         {/* ═══ القسم 3 — الديلات المغلقة ═══ */}
-        =
 
         {/* ═══ القسم 3.5 — عدد عملاء الحملة ═══ */}
         <SectionCard
@@ -617,6 +616,7 @@ export default function DailyReportPage() {
         {/* ═══ زرار الإرسال ═══ */}
         <button
           type="button"
+          className="btn-submit"
           onClick={handleSubmit}
           disabled={submitting}
           style={{
