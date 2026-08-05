@@ -15,8 +15,19 @@ export default function FormField({
   rows = 3,
   hint,
 }) {
-  // التنسيق كله في index.css تحت .ff-control — عشان نقدر نعمل :focus و :hover
-  const cls = error ? "ff-control ff-invalid" : "ff-control";
+  const baseStyle = {
+    width: "100%",
+    padding: "10px 14px",
+    border: error ? "1.5px solid var(--danger)" : "1.5px solid var(--gray-300)",
+    borderRadius: "var(--radius-sm)",
+    fontSize: "0.92rem",
+    fontFamily: "'Cairo', sans-serif",
+    color: "var(--gray-800)",
+    background: "var(--white)",
+    outline: "none",
+    transition: "border-color 0.2s, box-shadow 0.2s",
+    direction: "rtl",
+  };
 
   return (
     <div style={{ marginBottom: "14px" }}>
@@ -34,7 +45,7 @@ export default function FormField({
       )}
 
       {type === "select" ? (
-        <select value={value} onChange={e => onChange(e.target.value)} className={cls}>
+        <select value={value} onChange={e => onChange(e.target.value)} style={baseStyle}>
           <option value="">— اختر —</option>
           {options.map(opt => (
             <option key={opt} value={opt}>{opt}</option>
@@ -46,7 +57,7 @@ export default function FormField({
           onChange={e => onChange(e.target.value)}
           placeholder={placeholder}
           rows={rows}
-          className={cls}
+          style={{ ...baseStyle, resize: "vertical", lineHeight: 1.6 }}
         />
       ) : (
         <input
@@ -55,7 +66,7 @@ export default function FormField({
           onChange={e => onChange(e.target.value)}
           placeholder={placeholder}
           min={min}
-          className={cls}
+          style={baseStyle}
         />
       )}
 
