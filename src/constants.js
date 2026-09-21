@@ -29,16 +29,24 @@ export const DEAL_REJECTION_REASONS = [
 ];
 
 export const EMPLOYEES = [
+
   "M.Khalil",
-  "Nour Hassan", 
-  "Doha Sherif",
+
+  "Nour Hassan",
+
+  "Nada El Tawil",
+
+  "Nada Wagih",
+
   "Laila Hassan",
+
   "Reham",
+
   "Ahmed Desouki",
 
   // أضف باقي الموظفين هنا
-];
 
+];
 export const COUNTRIES = [
   "السعودية",
   "عُمان",
